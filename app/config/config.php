@@ -79,12 +79,7 @@ $config['environment'] = getenv('APP_ENV') ?: 'development';
 | WARNING: You MUST set this value!
 |
 */
-$render_url = getenv('RENDER_EXTERNAL_URL');
-
-$config['base_url'] = $render_url
-    ? rtrim($render_url, '/') . '/'
-    : 'http://127.0.0.1:8000/';
-
+$config['base_url'] 				= '';
 
 /*
 |--------------------------------------------------------------------------

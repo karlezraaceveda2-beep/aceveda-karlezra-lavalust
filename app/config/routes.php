@@ -49,7 +49,6 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 // Wrapped in a closure so the local $config array inside middleware.php
 // does not collide with the global $config Config object used elsewhere.
 (function () {
-    $config = [];
     require_once APP_DIR . 'config/middleware.php';
     get_config($config);
 })();
