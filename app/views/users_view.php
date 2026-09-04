@@ -217,7 +217,7 @@ foreach ($users as $user) {
 <body>
     <nav class="site-nav" aria-label="Primary navigation">
         <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">🔥</span><span>LavaLust</span></a>
-        <a class="nav-link" href="/">← Back to framework</a>
+        <a class="nav-link" href="/">← Home</a>
     </nav>
     <main>
         <div class="eyebrow">Directory / users</div>
