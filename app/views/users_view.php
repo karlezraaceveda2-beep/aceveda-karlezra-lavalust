@@ -47,11 +47,25 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
             text-align: center;
             color: #6b7280;
         }
+        .error {
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 1rem;
+            padding: 0.85rem 1rem;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            background: #fef2f2;
+            color: #991b1b;
+        }
     </style>
 </head>
 <body>
 
 <h1>Users</h1>
+
+<?php if (!empty($error)): ?>
+    <p class="error"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></p>
+<?php endif; ?>
 
 <table>
     <thead>
@@ -67,11 +81,11 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         <?php if (!empty($users)): ?>
             <?php foreach ($users as $user): ?>
                 <tr>
-                    <td><?= htmlspecialchars($user['id']); ?></td>
-                    <td><?= htmlspecialchars($user['username']); ?></td>
-                    <td><?= htmlspecialchars($user['email']); ?></td>
-                    <td><?= htmlspecialchars($user['role']); ?></td>
-                    <td><?= (int) $user['is_active'] === 1 ? 'Yes' : 'No'; ?></td>
+                    <td><?= htmlspecialchars((string) ($user['id'] ?? ''), ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?= htmlspecialchars((string) ($user['username'] ?? ''), ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?= htmlspecialchars((string) ($user['email'] ?? ''), ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?= htmlspecialchars((string) ($user['role'] ?? 'user'), ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?= (int) ($user['is_active'] ?? 0) === 1 ? 'Yes' : 'No'; ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>

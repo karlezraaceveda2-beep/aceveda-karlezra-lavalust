@@ -9,9 +9,21 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $this->call->model('UsersModel');
+        $data = [
+            'users' => [],
+            'error' => null,
+        ];
 
-        $data['users'] = $this->UsersModel->all();
+        $has_database_config = getenv('DB_HOST') && getenv('DB_NAME') &&
+            (getenv('DB_USERNAME') || getenv('DB_USER'));
+
+        if ($has_database_config) {
+            $this->call->database();
+            $this->UsersModel = $this->call->model('UsersModel');
+            $data['users'] = $this->UsersModel->all() ?: [];
+        } else {
+            $data['error'] = 'User data is unavailable because the database is not configured.';
+        }
 
         $this->call->view('users_view', $data);
     }
