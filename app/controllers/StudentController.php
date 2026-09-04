@@ -5,10 +5,16 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $_SESSION['student_access'] = true;
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
+        $_SESSION['profile_access'] = true;
 
-        $this->call->view('student/home');
+        $this->call->view('student/home', [
+            'name' => 'Karl Ezra',
+            'denied' => isset($_GET['denied']) && $_GET['denied'] === '1',
+        ]);
     }
 
     public function profile()
