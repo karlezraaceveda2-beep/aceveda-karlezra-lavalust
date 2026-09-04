@@ -57,10 +57,10 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
     <thead>
         <tr>
             <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
             <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Active</th>
         </tr>
     </thead>
     <tbody>
@@ -68,10 +68,10 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
             <?php foreach ($users as $user): ?>
                 <tr>
                     <td><?= htmlspecialchars($user['id']); ?></td>
-                    <td><?= htmlspecialchars($user['firstname']); ?></td>
-                    <td><?= htmlspecialchars($user['lastname']); ?></td>
-                    <td><?= htmlspecialchars($user['email']); ?></td>
                     <td><?= htmlspecialchars($user['username']); ?></td>
+                    <td><?= htmlspecialchars($user['email']); ?></td>
+                    <td><?= htmlspecialchars($user['role']); ?></td>
+                    <td><?= (int) $user['is_active'] === 1 ? 'Yes' : 'No'; ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
