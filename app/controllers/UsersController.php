@@ -1,29 +1,31 @@
 <?php
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
-class StudentController extends Controller 
+class UsersController extends Controller
 {
+    /**
+     * Retrieve all users from the database via UsersModel
+     * and pass them to the view for display.
+     */
     public function index()
     {
-        $_SESSION['student_access'] = true;
-
-
-        $this->call->view('student/home');
-    }
-
-    public function profile()
-    {
-        $data['student'] = [
-            'student_id' => '202400118', 
-            'name'       => 'Karl Ezra R. Aceveda',
-            'course'     => 'BS Information Technology',
-            'year'       => '3rd Year',
-            'section'    => 'F3',
-            'email'      => 'karlezraaceveda2@gmail.com',
-            'skills'     => 'PHP, C#, HTML/CSS, MySQL',
-            'hobbies'    => 'Programming, Gaming, Watching Movies',
+        $data = [
+            'users' => [],
+            'error' => null,
         ];
 
-        $this->call->view('student/profile', $data);
+        $has_database_config = getenv('DB_HOST') && getenv('DB_NAME') &&
+            (getenv('DB_USERNAME') || getenv('DB_USER'));
+
+        if ($has_database_config) {
+            $this->call->database();
+            $this->UsersModel = $this->call->model('UsersModel');
+            $data['users'] = $this->UsersModel->all() ?: [];
+        } else {
+            $data['error'] = 'User data is unavailable because the database is not configured.';
+        }
+
+        $this->call->view('users_view', $data);
     }
+    
 }
