@@ -8,75 +8,60 @@ $is_admin = (($_SESSION['role'] ?? null) === 'admin');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products | Product Manager</title>
+    <title>Products | LavaLust</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #f4f7fb 0%, #e8edf5 100%);
-            color: #1f2937;
-            min-height: 100vh;
-            padding: 2.5rem 1.5rem;
-        }
-        .wrap { max-width: 1000px; margin: 0 auto; }
-        .topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-        h1 { font-size: 1.6rem; }
-        .actions { display: flex; gap: .6rem; align-items: center; }
-        .btn {
-            display: inline-block;
-            padding: .55rem 1rem;
-            border-radius: 8px;
-            font-size: .85rem;
-            font-weight: 600;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-primary { background: #2563eb; color: #fff; }
-        .btn-primary:hover { background: #1d4ed8; }
-        .btn-muted { background: #e5e7eb; color: #1f2937; }
-        .btn-muted:hover { background: #d1d5db; }
-        .btn-danger { background: #dc2626; color: #fff; }
-        .btn-danger:hover { background: #b91c1c; }
-        .btn-sm { padding: .4rem .75rem; font-size: .8rem; }
-        .msg { padding: .7rem .9rem; border-radius: 8px; font-size: .85rem; margin-bottom: 1.25rem; }
-        .msg.success { background: #dcfce7; color: #166534; }
-        .msg.error { background: #fee2e2; color: #991b1b; }
-        .panel {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-            overflow: hidden;
-        }
+        :root { --ink: #17232b; --muted: #718087; --paper: #f4f0e8; --panel: #fffdf8; --line: #d9d8cc; --coral: #ec684f; --teal: #1d7770; }
+        * { box-sizing: border-box; }
+        body { margin: 0; min-height: 100vh; padding: 30px; color: var(--ink); background: var(--paper); font-family: 'Trebuchet MS', Arial, sans-serif; }
+        .wrap { max-width: 1180px; margin: 0 auto; }
+        .topbar { display: flex; align-items: end; justify-content: space-between; gap: 24px; padding-bottom: 26px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+        .brand { font: 700 .72rem 'Courier New', monospace; letter-spacing: .18em; color: var(--teal); text-transform: uppercase; }
+        h1 { margin: 12px 0 4px; font: 400 clamp(2.4rem, 5vw, 4.6rem)/.9 Georgia, 'Times New Roman', serif; letter-spacing: -.06em; }
+        .kicker { margin: 0; color: var(--muted); font-size: .87rem; }
+        .actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+        .identity { color: var(--muted); font-size: .82rem; }
+        .identity strong { color: var(--ink); }
+        .role { margin-left: 5px; padding: 4px 7px; color: var(--teal); background: #dcece4; border-radius: 2px; font: 700 .65rem 'Courier New', monospace; text-transform: uppercase; }
+        .btn { display: inline-block; padding: 11px 14px; border: 1px solid transparent; border-radius: 2px; cursor: pointer; text-decoration: none; font: 700 .72rem 'Courier New', monospace; letter-spacing: .05em; text-transform: uppercase; }
+        .btn-primary { color: #fff; background: var(--coral); }
+        .btn-primary:hover { background: #d95641; }
+        .btn-muted { color: var(--ink); background: transparent; border-color: var(--line); }
+        .btn-muted:hover { border-color: var(--ink); }
+        .btn-danger { color: #a84438; background: transparent; border-color: #e6b5a9; }
+        .btn-danger:hover { color: #fff; background: var(--coral); }
+        .btn-sm { padding: 7px 9px; font-size: .65rem; }
+        .msg { margin: 22px 0; padding: 12px 14px; border-left: 3px solid; font-size: .84rem; }
+        .msg.success { color: #23635e; background: #e2f1eb; border-color: var(--teal); }
+        .msg.error { color: #913c32; background: #fbe9e3; border-color: var(--coral); }
+        .panel { margin-top: 28px; overflow: hidden; background: var(--panel); border: 1px solid var(--line); box-shadow: 8px 8px 0 #ded7ca; }
         table { width: 100%; border-collapse: collapse; }
-        th, td { padding: .85rem 1.1rem; text-align: left; font-size: .9rem; }
-        th { background: #2563eb; color: #fff; font-weight: 600; }
-        tbody tr:nth-child(even) { background: #f8fafc; }
-        tbody tr:hover { background: #eef2ff; }
-        td { border-bottom: 1px solid #f1f5f9; }
-        td.desc { max-width: 260px; color: #4b5563; }
+        th, td { padding: 17px 18px; text-align: left; font-size: .84rem; }
+        th { color: var(--muted); background: #eeeadf; border-bottom: 1px solid var(--line); font: 700 .68rem 'Courier New', monospace; letter-spacing: .06em; text-transform: uppercase; }
+        td { border-bottom: 1px solid #ece9df; }
+        tbody tr:hover { background: #fff7f1; }
+        td:first-child { color: var(--muted); font-family: 'Courier New', monospace; }
+        td:nth-child(2) { font-weight: 700; }
+        td.desc { max-width: 280px; color: var(--muted); line-height: 1.45; }
         td.numeric { text-align: right; white-space: nowrap; }
-        .row-actions { display: flex; gap: .5rem; }
-        .empty { padding: 2rem; text-align: center; color: #6b7280; }
+        .row-actions { display: flex; gap: 7px; }
+        .empty { padding: 54px 20px; color: var(--muted); text-align: center; }
         form.inline { display: inline; }
+        @media (max-width: 760px) { body { padding: 18px 12px; } .topbar { align-items: start; } .actions { justify-content: flex-start; } .panel { overflow-x: auto; } table { min-width: 760px; } }
     </style>
 </head>
 <body>
 <div class="wrap">
     <div class="topbar">
-        <h1>Products</h1>
+        <div>
+            <div class="brand">LavaLust / Inventory</div>
+            <h1>Products</h1>
+            <p class="kicker">A clear view of what is moving through your catalogue.</p>
+        </div>
         <div class="actions">
-            <span style="font-size:.85rem;color:#6b7280;">
+            <span class="identity">
                 Signed in as <strong><?= htmlspecialchars($_SESSION['username'] ?? ''); ?></strong>
                 <?php if (!$is_admin): ?>
-                    <span style="background:#e5e7eb;color:#4b5563;padding:.15rem .5rem;border-radius:6px;font-size:.75rem;margin-left:.4rem;">view only</span>
+                    <span class="role">view only</span>
                 <?php endif; ?>
             </span>
             <?php if ($is_admin): ?>

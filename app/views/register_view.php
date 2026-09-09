@@ -6,58 +6,44 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register | Product Manager</title>
+    <title>Create account | LavaLust</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #f4f7fb 0%, #e8edf5 100%);
-            color: #1f2937;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-        }
-        .card {
-            background: #fff;
-            width: 100%;
-            max-width: 380px;
-            padding: 2.25rem 2rem;
-            border-radius: 14px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        }
-        h1 { font-size: 1.4rem; margin-bottom: .35rem; }
-        p.subtitle { color: #6b7280; font-size: .88rem; margin-bottom: 1.5rem; }
-        label { display: block; font-size: .85rem; font-weight: 600; margin-bottom: .35rem; }
-        input {
-            width: 100%;
-            padding: .65rem .8rem;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: .95rem;
-            margin-bottom: 1rem;
-        }
-        input:focus { outline: none; border-color: #2563eb; }
-        button {
-            width: 100%;
-            padding: .7rem;
-            background: #2563eb;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-size: .95rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        button:hover { background: #1d4ed8; }
-        .msg.error { padding: .7rem .9rem; border-radius: 8px; font-size: .85rem; margin-bottom: 1rem; background: #fee2e2; color: #991b1b; }
-        .footer-link { text-align: center; margin-top: 1.25rem; font-size: .85rem; color: #6b7280; }
-        .footer-link a { color: #2563eb; text-decoration: none; font-weight: 600; }
+        :root { --ink: #17232b; --muted: #718087; --paper: #f4f0e8; --panel: #fffdf8; --line: #d9d8cc; --coral: #ec684f; --teal: #1d7770; }
+        * { box-sizing: border-box; }
+        body { margin: 0; min-height: 100vh; padding: 24px; display: grid; place-items: center; color: var(--ink); background: var(--paper); font-family: Georgia, 'Times New Roman', serif; }
+        .auth-shell { width: min(100%, 980px); min-height: 600px; display: grid; grid-template-columns: .9fr 1.1fr; background: var(--panel); border: 1px solid var(--line); box-shadow: 14px 14px 0 #d9d1c1; }
+        .brand-panel { position: relative; overflow: hidden; padding: 42px; display: flex; flex-direction: column; justify-content: space-between; color: #fffaf0; background: var(--coral); }
+        .brand-panel:after { content: ''; position: absolute; width: 230px; height: 230px; right: -78px; bottom: -66px; border: 32px solid rgba(255,255,255,.18); border-radius: 50%; }
+        .mark { position: relative; z-index: 1; font: 700 .78rem/1 'Courier New', monospace; letter-spacing: .2em; }
+        .brand-copy { position: relative; z-index: 1; }
+        .brand-copy h2 { max-width: 280px; margin: 0 0 16px; font-size: clamp(2.4rem, 5vw, 4.6rem); line-height: .9; letter-spacing: -.06em; }
+        .brand-copy p { max-width: 260px; margin: 0; color: #ffe0d6; font: .95rem/1.6 'Trebuchet MS', sans-serif; }
+        .eyebrow { margin: 0 0 10px; color: #fff5d7; font: 700 .7rem/1 'Courier New', monospace !important; letter-spacing: .18em; text-transform: uppercase; }
+        .form-panel { align-self: center; width: min(100%, 390px); padding: 54px 48px; }
+        h1 { margin: 0 0 8px; font-size: 2.25rem; letter-spacing: -.04em; }
+        .subtitle { margin: 0 0 30px; color: var(--muted); font: .92rem/1.5 'Trebuchet MS', sans-serif; }
+        label { display: block; margin: 18px 0 7px; font: 700 .76rem/1 'Courier New', monospace; letter-spacing: .04em; text-transform: uppercase; }
+        input { width: 100%; padding: 13px 14px; border: 1px solid var(--line); border-radius: 2px; color: var(--ink); background: #fbfaf5; font: 1rem 'Trebuchet MS', sans-serif; }
+        input:focus { outline: 2px solid #f3b19c; outline-offset: 2px; border-color: var(--coral); }
+        button { width: 100%; margin-top: 26px; padding: 14px; border: 0; border-radius: 2px; color: #fff; background: var(--teal); cursor: pointer; font: 700 .82rem 'Courier New', monospace; letter-spacing: .1em; text-transform: uppercase; }
+        button:hover { background: #155e59; }
+        .msg.error { margin-bottom: 14px; padding: 11px 13px; color: #913c32; background: #fbe9e3; border-left: 3px solid var(--coral); font: .82rem/1.4 'Trebuchet MS', sans-serif; }
+        .footer-link { margin-top: 24px; color: var(--muted); text-align: center; font: .83rem 'Trebuchet MS', sans-serif; }
+        .footer-link a { color: var(--teal); font-weight: 700; text-decoration: none; }
+        @media (max-width: 680px) { body { padding: 12px; } .auth-shell { display: block; box-shadow: 8px 8px 0 #d9d1c1; } .brand-panel { min-height: 220px; padding: 28px; } .brand-copy h2 { font-size: 3rem; } .form-panel { padding: 38px 28px; } }
     </style>
 </head>
 <body>
-<div class="card">
+<main class="auth-shell">
+    <section class="brand-panel">
+        <div class="mark">LL / INVENTORY</div>
+        <div class="brand-copy">
+            <p class="eyebrow">Good systems make room</p>
+            <h2>Start fresh.</h2>
+            <p>Build a product catalogue that stays easy to read as your work gets bigger.</p>
+        </div>
+    </section>
+    <section class="form-panel">
     <h1>Create an account</h1>
     <p class="subtitle">Register to manage products.</p>
 
@@ -81,6 +67,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
     <div class="footer-link">
         Already have an account? <a href="<?= base_url('login'); ?>">Log in</a>
     </div>
-</div>
+    </section>
+</main>
 </body>
 </html>
