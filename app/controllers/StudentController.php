@@ -21,7 +21,7 @@ class StudentController extends Controller
     {
         $data['student'] = [
             'student_id' => '202400118', 
-            'name'       => 'Karl Ezra R. Aceveda',
+            'name'       => 'Karl Ezra R.  Aceveda',
             'course'     => 'BS Information Technology',
             'year'       => '3rd Year',
             'section'    => 'F3',
